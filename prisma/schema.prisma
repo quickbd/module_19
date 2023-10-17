@@ -14,8 +14,8 @@ model category {
   metaTitle      String?    @db.VarChar(100)
   slug           String?    @db.VarChar(100)
   content        String?    @db.VarChar(100)
-  createdAt      DateTime?  @db.Timestamp(0)
-  updatedAt      DateTime?  @db.Timestamp(0)
+  createAt      DateTime?  @db.Timestamp(0)
+  updateAt      DateTime?  @db.Timestamp(0)
   category       category?  @relation("categoryTocategory", fields: [parentId], references: [id], onDelete: Restrict, map: "FK_category")
   other_category category[] @relation("categoryTocategory")
 
@@ -33,8 +33,8 @@ model user {
   admin        Boolean?
   registeredAt DateTime? @db.DateTime(0)
   lastLogin    DateTime? @db.Timestamp(0)
-  createdAt    DateTime? @db.Timestamp(0)
-  updatedAt    DateTime? @db.Timestamp(0)
+  createAt      DateTime?  @db.Timestamp(0)
+  updateAt      DateTime?  @db.Timestamp(0)
   cart         cart[]
   order        order[]
   product      product[]
@@ -54,8 +54,8 @@ model cart {
   city       String?  @db.VarChar(100)
   country    String?  @db.VarChar(100)
   userId     BigInt?  @db.UnsignedBigInt
-  createAt   DateTime @default(now()) @db.Timestamp(0)
-  updateAt   DateTime @default(dbgenerated("(0000-00-00 00:00:00)")) @db.Timestamp(0)
+  createAt      DateTime?  @db.Timestamp(0)
+  updateAt      DateTime?  @db.Timestamp(0)
   user       user?    @relation(fields: [userId], references: [id], onDelete: Restrict, map: "FK_cart")
 
   @@index([userId], map: "FK_cart")
@@ -79,8 +79,8 @@ model order {
   city         String?  @db.VarChar(100)
   country      String?  @db.VarChar(100)
   userId       BigInt?  @db.UnsignedBigInt
-  createAt     DateTime @default(now()) @db.Timestamp(0)
-  updateAt     DateTime @default(dbgenerated("(0000-00-00 00:00:00)")) @db.Timestamp(0)
+  createAt      DateTime?  @db.Timestamp(0)
+  updateAt      DateTime?  @db.Timestamp(0)
   user         user?    @relation(fields: [userId], references: [id], onDelete: Restrict, map: "FK_order")
 
   @@index([userId], map: "FK_order")
@@ -95,10 +95,10 @@ model product {
   price          Int?
   discount       Int?
   publishedAt    DateTime         @default(now()) @db.Timestamp(0)
-  startsAt       DateTime         @default(dbgenerated("(0000-00-00 00:00:00)")) @db.Timestamp(0)
-  endsAt         DateTime         @default(dbgenerated("(0000-00-00 00:00:00)")) @db.Timestamp(0)
-  createdAt      DateTime         @default(dbgenerated("(0000-00-00 00:00:00)")) @db.Timestamp(0)
-  updatedAt      DateTime         @default(dbgenerated("(0000-00-00 00:00:00)")) @db.Timestamp(0)
+  startsAt       DateTime?  @db.Timestamp(0)
+  endsAt         DateTime?  @db.Timestamp(0)
+  createAt      DateTime?  @db.Timestamp(0)
+  updateAt      DateTime?  @db.Timestamp(0)
   userId         BigInt?          @db.UnsignedBigInt
   user           user?            @relation(fields: [userId], references: [id], onDelete: Restrict, map: "FK_product")
   product_meta   product_meta[]
@@ -112,8 +112,8 @@ model product_meta {
   key       String?  @db.VarChar(100)
   content   String?  @db.VarChar(100)
   productId BigInt?  @db.UnsignedBigInt
-  createAt  DateTime @default(now()) @db.Timestamp(0)
-  updateAt  DateTime @default(dbgenerated("(0000-00-00 00:00:00)")) @db.Timestamp(0)
+  createAt      DateTime?  @db.Timestamp(0)
+  updateAt      DateTime?  @db.Timestamp(0)
   product   product? @relation(fields: [productId], references: [id], onDelete: Restrict, map: "FK_product_meta")
 
   @@index([productId], map: "FK_product_meta")
@@ -125,8 +125,8 @@ model product_review {
   rating    String?  @db.VarChar(100)
   content   String?  @db.VarChar(100)
   productId BigInt?  @db.UnsignedBigInt
-  createAt  DateTime @default(now()) @db.Timestamp(0)
-  updateAt  DateTime @default(dbgenerated("(0000-00-00 00:00:00)")) @db.Timestamp(0)
+  createAt      DateTime?  @db.Timestamp(0)
+  updateAt      DateTime?  @db.Timestamp(0)
   product   product? @relation(fields: [productId], references: [id], onDelete: Restrict, map: "FK_product_review")
 
   @@index([productId], map: "FK_product_review")
